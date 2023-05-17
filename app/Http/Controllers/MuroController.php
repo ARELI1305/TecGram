@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class MuroController extends Controller
@@ -26,6 +27,15 @@ class MuroController extends Controller
             'descripcion'=>'required',
             'imagen'=>'required'
         ]);
+
+        Post::create([
+            'titulo'=>$request->titulo,
+            'descripcion'=>$request->descripcion,
+            'imagen'=>$request->imagen,
+            'user_id'=>auth()->user()->id
+
+        ]);
+        return redirect()->route('muro.index',auth()->user()->username);
     }
 }
 
